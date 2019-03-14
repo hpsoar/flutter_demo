@@ -1,0 +1,3 @@
+[submodule "lib/flutter_utils"]
+	path = lib/flutter_utils
+	url = https://github.com/hpsoar/flutter_utils.git
