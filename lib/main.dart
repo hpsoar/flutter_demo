@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'flutter_utils/bridge/bridge.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,6 +45,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  CYBridge bridge =CYBridge();
 
   void _incrementCounter() {
     setState(() {
@@ -54,10 +56,13 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+    bridge.openFlutter("main.dart");
   }
 
   @override
   Widget build(BuildContext context) {
+    bridge.setContext(context);
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
