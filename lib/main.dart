@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    testEventHandle = bridge.subscribeEvent("test_event", (Map data, String error) {
+    testEventHandle = bridge.subscribeEvent("test_event", (Object data, String error) {
       print("flutter: receive event: $data, $error"); 
     });
 
