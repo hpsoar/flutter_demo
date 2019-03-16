@@ -53,10 +53,10 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
 
     testEventHandle = bridge.subscribeEvent("test_event", (Map data, String error) {
-      
+      print("flutter: receive event: $data, $error"); 
     });
 
-    bridge.unsubscribe("test_event", testEventHandle);
+    // bridge.unsubscribe("test_event", testEventHandle);
   }
 
   void _incrementCounter() {
@@ -101,6 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.display1,
             ),
             FlatButton(onPressed: () {
+              bridge.emitEvent("test_event", data:{ "hello": "world" }, error:"error");
             },
             child: Text("Notifiy Result"),)
           ],
