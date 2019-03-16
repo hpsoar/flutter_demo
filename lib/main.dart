@@ -1,31 +1,25 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'flutter_utils/bridge/bridge.dart';
+import 'news/news_list.dart';
+import 'flutter_utils/widgets/common/util_mixin.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(_widgetForRoute(window.defaultRouteName));
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or press Run > Flutter Hot Reload in a Flutter IDE). Notice that the
-        // counter didn't reset back to zero; the application is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+Widget _widgetForRoute(String route) {
+  switch (route) {
+    case 'main':
+      return MyHomePage(title: "setting",).makePage();
+    case 'news_list':
+      return NewsListPage().makePage(); 
+    default:
+      return Center(
+        child: Text('Unknown route: $route', textDirection: TextDirection.ltr),
+      );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatefulWidget with UIHelper {
   MyHomePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
