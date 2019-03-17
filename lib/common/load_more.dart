@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../flutter_utils/widgets/refresh/load_more.dart';
+import 'package:flutter_utils/flutter_utils.dart';
 
 class SimpleLoadMoreController extends LoadMoreController {
   SimpleLoadMoreController(LoadMoreCallback callback) : super(callback);

@@ -41,11 +41,25 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_platform_widgets:
+    dependency: "direct main"
+    description:
+      path: flutter_platform_widgets
+      relative: true
+    source: path
+    version: "0.9.5"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_utils:
+    dependency: "direct main"
+    description:
+      path: flutter_utils
+      relative: true
+    source: path
+    version: "0.0.1"
   matcher:
     dependency: transitive
     description:

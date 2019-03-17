@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../flutter_utils/widgets/list/list_utils.dart';
-import '../flutter_utils/widgets/builder.dart';
+import 'package:flutter_utils/flutter_utils.dart';
 
 class NewsItem extends ListItem {
   @override

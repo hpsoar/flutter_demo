@@ -17,6 +17,10 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  flutter_platform_widgets:
+    path: flutter_platform_widgets
+  flutter_utils:
+    path: flutter_utils
   flutter:
     sdk: flutter
 

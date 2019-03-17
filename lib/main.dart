@@ -1,8 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'flutter_utils/bridge/bridge.dart';
+// import 'flutter_utils/bridge/bridge.dart';
 import 'news/news_list.dart';
-import 'flutter_utils/widgets/common/util_mixin.dart';
+// import 'flutter_utils/widgets/common/util_mixin.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_utils/flutter_utils.dart';
 
 void main() => runApp(_widgetForRoute(window.defaultRouteName));
 
@@ -94,6 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.display1,
             ),
+            PlatformCircularProgressIndicator(),
             FlatButton(onPressed: () {
               bridge.emitEvent("test_event", data:{ "hello": "world" }, error:"error");
             },

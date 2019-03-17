@@ -1,18 +1,19 @@
 
 import 'package:flutter/material.dart';
-import '../flutter_utils/bridge/bridge.dart';
-import '../flutter_utils/widgets/list/list_utils.dart';
-import '../flutter_utils/widgets/refresh/refresh_indicator.dart';
-import '../flutter_utils/widgets/refresh/load_more.dart';
+import 'package:flutter_utils/flutter_utils.dart';
+
 import '../common/load_more.dart';
 import 'news_item.dart';
-import '../flutter_utils/widgets/common/util_mixin.dart';
 
 class NewsListPage extends StatefulWidget with UIHelper {
   NewsListPage({Key key}) : super(key: key);
 
   @override
   _NewsListPageState createState() => _NewsListPageState();
+}
+
+class CYContainer extends Container {
+
 }
 
 class _NewsListPageState extends State<NewsListPage> {
@@ -52,7 +53,6 @@ class _NewsListPageState extends State<NewsListPage> {
       model.isLoading = true;
       loadMore.isLoading = !isRefresh;
     });
-
 
     for (var i = 0; i < 20; ++i) {
       model.add(new NewsItem());
