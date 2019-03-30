@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_utils/flutter_utils.dart';
 
-import '../common/load_more.dart';
 import 'news_item.dart';
 
 class NewsListPage extends StatefulWidget with UIHelper {
@@ -12,32 +11,41 @@ class NewsListPage extends StatefulWidget with UIHelper {
   _NewsListPageState createState() => _NewsListPageState();
 }
 
-class CYContainer extends Container {
-
-}
-
 class _NewsListPageState extends State<NewsListPage> {
-  CYBridge native;
+  final bridge =CYBridge();
 
-  final GlobalKey<PullToRefreshState> _refreshIndicatorKey =
-    new GlobalKey<PullToRefreshState>();
-
-  ListModel model = new ListModel();
+  ListModel model;
 
   LoadMoreController loadMore;
+
+  RefreshController refreshController;
+
+  PagedLoader loader =FakePagedLoader((bool isRefresh, int page){
+    var list = []; 
+
+    if (page > 5) return list;
+
+    for (var i = 0; i < 20; ++i) {
+      list.add(new NewsItem());
+    } 
+    return list;
+  });
 
   @override
   void initState() {
     super.initState();
 
-    loadMore = new SimpleLoadMoreController(() {
+    bridge.updatePage(title: "新闻");
+
+    loadMore = SimpleLoadMoreController(() {
       load(false);
     });
 
-    // load(true);
+    model = ListModel(loadMoreController: loadMore);
 
-    WidgetsBinding.instance
-      .addPostFrameCallback((_) => _refreshIndicatorKey.currentState.show());
+    refreshController =RefreshController(RefreshHeader());
+
+    refreshController.refresh();
   }
 
   @override
@@ -47,31 +55,33 @@ class _NewsListPageState extends State<NewsListPage> {
   }
 
   Future<void> load(bool isRefresh) async{
-    if (model.isLoading) return null;
-
-    setState(() {
-      model.isLoading = true;
-      loadMore.isLoading = !isRefresh;
-    });
-
-    for (var i = 0; i < 20; ++i) {
-      model.add(new NewsItem());
-    }
 
     // return native.get('https://api.chunyuyisheng.com/community/v2/channel/detail/', null, (Map r, String error) {
     //   if (isRefresh) {
     //     model.clear();
     //   }
 
-    //   for (var i = 0; i < 20; ++i) {
-    //     model.add(new NewsItem());
-    //   }
+    Future f = loader.load(isRefresh: isRefresh);
 
-    //   setState(() {
-    //     model.isLoading = false;
-    //     loadMore.isLoading = false;
-    //   });
-    // });
+    return f.then((l) {
+      print(l);
+      if (isRefresh) {
+        model.clear();
+      }
+
+      for (var i in l) {
+        model.add(i);
+      }
+
+      print("result: $l");
+
+      loadMore.hasMore = (l as List).length >=loader.pageSize;
+    }).catchError((e){
+      print("error: $e");
+    }).whenComplete((){
+      setState(() {
+      });
+    });
   }
 
   Future<void> _refresh() async {
@@ -88,8 +98,8 @@ class _NewsListPageState extends State<NewsListPage> {
           children: <Widget>[ 
             new Expanded(
               child: PullToRefresh(
-                key: _refreshIndicatorKey,
-                child: model.build(controller: loadMore),
+                key: refreshController.refreshIndicatorKey,
+                child: model.build(context),
                 onRefresh: _refresh,
               )
             ) 
