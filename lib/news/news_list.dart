@@ -20,8 +20,8 @@ class _NewsListPageState extends State<NewsListPage> {
 
   RefreshController refreshController;
 
-  PagedLoader loader =FakePagedLoader((bool isRefresh, int page){
-    var list = []; 
+  PagedLoader loader =FakePagedLoader<List<NewsItem>>((bool isRefresh, int page){
+    List<NewsItem> list = []; 
 
     if (page > 5) return list;
 
@@ -64,7 +64,8 @@ class _NewsListPageState extends State<NewsListPage> {
     Future f = loader.load(isRefresh: isRefresh);
 
     return f.then((l) {
-      print(l);
+      print("result: $l");
+
       if (isRefresh) {
         model.clear();
       }
@@ -72,8 +73,6 @@ class _NewsListPageState extends State<NewsListPage> {
       for (var i in l) {
         model.add(i);
       }
-
-      print("result: $l");
 
       loadMore.hasMore = (l as List).length >=loader.pageSize;
     }).catchError((e){
