@@ -41,7 +41,7 @@ class MyHomePage extends StatefulWidget with UIHelper {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  CYBridge bridge =CYBridge();
+  HBBridge bridge =HBBridge();
   var testEventHandle;
 
   @override

@@ -10,7 +10,6 @@ class SettingsPage extends StatefulWidget with UIHelper {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  CYBridge native;
 
   ListModel model = new ListModel();
 
@@ -36,7 +35,7 @@ class _SettingsPageState extends State<SettingsPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[ 
             new Expanded(
-              child: model.build(controller: null),
+              child: model.build(context),
             ) 
           ],
       ),

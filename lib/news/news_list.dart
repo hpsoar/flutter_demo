@@ -12,7 +12,7 @@ class NewsListPage extends StatefulWidget with UIHelper {
 }
 
 class _NewsListPageState extends State<NewsListPage> {
-  final bridge =CYBridge();
+  final bridge =HBBridge();
 
   ListModel model;
 
