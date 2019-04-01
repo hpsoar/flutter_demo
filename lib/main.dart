@@ -53,6 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     // bridge.unsubscribe("test_event", testEventHandle);
+
+    bridge.updatePage(title: "测试事件");
   }
 
   void _incrementCounter() {
